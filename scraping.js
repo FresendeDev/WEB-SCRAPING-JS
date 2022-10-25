@@ -1,6 +1,6 @@
 const pup = require("puppeteer");
 
-const fs = require("fs");
+// const fs = require("fs");
 
 const url = "https://www.mercadolivre.com.br/";
 const searchFor = "macbook";
@@ -95,6 +95,8 @@ const list = [];
   //     }
   //   }
   // );
+
+  // usando o writeFileSync nao precisa retornar try catch para pegar erro
   try {
     const dataString = JSON.stringify(list, null, 2);
     fs.writeFileSync("./db/dados.json", dataString, "utf-8");
