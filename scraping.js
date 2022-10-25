@@ -80,8 +80,32 @@ const list = [];
       c++;
     }
   }
-  const listJason = JSON.stringify(list, null, 2);
-  console.log(listJason);
+  // escrevendo no arquivo json
+  // fs.writeFile(
+  //   "./db/dados.json",
+  //   JSON.stringify(list, null, 2),
+  //   // JSON.stringify(list, ["id", "price"], 2),
+  //   "utf-8",
+  //   (error, result) => {
+  //     if (error) {
+  //       console.error(error);
+  //       return;
+  //     } else {
+  //       if (result == undefined) console.log("Json ok!");
+  //     }
+  //   }
+  // );
+  try {
+    const dataString = JSON.stringify(list, null, 2);
+    fs.writeFileSync("./db/dados.json", dataString, "utf-8");
+    console.log("Json ok!");
+  } catch (e) {
+    console.log(e);
+  }
+
+  // convertendo para formato json
+  // const listJason = JSON.stringify(list, null, 2);
+  // console.log(listJason);
 
   // console.log("list= ", list);
 
@@ -89,7 +113,7 @@ const list = [];
   //   console.log("8. aguardando antes de fechar");
 
   await browser.close();
-  //   console.log("fechado");
+  console.log("fechado");
 })();
 
 // API jason
