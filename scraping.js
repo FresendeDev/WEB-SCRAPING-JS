@@ -29,8 +29,8 @@ const list = [];
   //   console.log("6. aguardando seletor...");
 
   // $$eval  equivalente a document.querySelectorAll
-  const links = await page.$$eval(".ui-search-result__image > a", (el) =>
-    el.map((link) => link.href)
+  const links = await page.$$eval(".ui-search-result__image > a", (elem) =>
+    elem.map((link) => link.href)
   );
 
   //   if (links) {
