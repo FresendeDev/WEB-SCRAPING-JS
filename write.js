@@ -5,8 +5,10 @@ const JSONWrite = (filePath, data, encoding = "utf-8") => {
     fs.writeFile(filePath, JSON.stringify(data, null, 2), encoding, (err) => {
       if (err) {
         reject(err);
+
         return;
       }
+      console.log("escrito");
       resolve(true);
     });
   };

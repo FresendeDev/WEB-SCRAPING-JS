@@ -1,10 +1,7 @@
 const pup = require("puppeteer");
-// import JSONWrite from "./write";
-// import * as JSONWrite from "./write.js";
-// var test = require("./write.js");
+const JSONRead = require("./read");
 const JSONWrite = require("./write");
-// import { JSONWrite } from "./write";
-// import { test } from "./write";
+// const JSONRead = require("./read");
 
 // const fs = require("fs");
 
@@ -86,10 +83,11 @@ const list = [];
       c++;
     }
   }
-  const t = { name: "fabio" };
-  const ab = JSONWrite("./db/teste.json", list)
-    .then(console.log)
-    .catch(console.error);
+  // console.log(list);
+  const ab = JSONWrite("./db/dados.json", list);
+  // console.log("escrito");
+  // .then(console.log)
+  // .catch(console.error);
 
   // JSONWrite("./db/teste.json", list);
 
@@ -129,6 +127,11 @@ const list = [];
 
   await browser.close();
   console.log("fechado");
+
+  // const a = JSONRead("./db/teste.json");
+  // console.log(a);
+  // a = JSONRead();
+  // console.log("a= ", a);
 })();
 
 // API jason
