@@ -89,7 +89,7 @@ const list = [];
     .then(console.log)
     .catch(console.error);
 
-  // JSONWrite("./db/teste.json", list);
+  JSONWrite("./db/teste.json", list);
 
   // escrevendo no arquivo json
   // fs.writeFile(

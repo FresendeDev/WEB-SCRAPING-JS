@@ -1,6 +1,8 @@
 const JSONRead = require("./read");
 const JSONWrite = require("./write");
 
+// const result = "";
+
 const JSONUpdate = (filePath, newData, encoding = "utf-8") => {
   const promiseCallback = async (resolve, reject) => {
     try {
@@ -12,9 +14,20 @@ const JSONUpdate = (filePath, newData, encoding = "utf-8") => {
       reject(e);
     }
   };
+
   return new Promise(promiseCallback);
 };
 
 module.exports = JSONUpdate;
 
-JSONUpdate("./db/teste.json", { id: 5 }).then(console.log).catch(console.error);
+JSONUpdate("./db/teste.json", [
+  {
+    id: 6,
+    title: "MacBook",
+    price: "6",
+    saller: "PRIME.VENDASONLINE",
+    link: "NA",
+  },
+])
+  .then(console.log)
+  .catch(console.error);
