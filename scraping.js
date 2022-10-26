@@ -13,6 +13,7 @@ const list = [];
 (async () => {
   // headless: false mostra o processo se True executa em segundo plano
   const browser = await pup.launch({ headless: true });
+  // page = await browser.newPage();
   page = await browser.newPage();
   console.log("1. iniciado");
 
@@ -84,10 +85,9 @@ const list = [];
     }
   }
   // console.log(list);
-  const ab = JSONWrite("./db/dados.json", list);
-  // console.log("escrito");
-  // .then(console.log)
-  // .catch(console.error);
+  const ab = JSONWrite("./db/dados.json", list)
+    .then(console.log)
+    .catch(console.error);
 
   // JSONWrite("./db/teste.json", list);
 
@@ -128,10 +128,9 @@ const list = [];
   await browser.close();
   console.log("fechado");
 
-  // const a = JSONRead("./db/teste.json");
-  // console.log(a);
-  // a = JSONRead();
-  // console.log("a= ", a);
+  const leitura = await JSONRead("./db/teste.json")
+    .then(console.log)
+    .catch(console.error);
 })();
 
 // API jason

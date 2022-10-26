@@ -8,7 +8,7 @@ const JSONWrite = (filePath, data, encoding = "utf-8") => {
 
         return;
       }
-      console.log("escrito");
+      console.log("escrito json ok");
       resolve(true);
     });
   };
@@ -40,7 +40,7 @@ const JSONWrite = (filePath, data, encoding = "utf-8") => {
 //   console.log(e);
 // }
 
-// JSONWrite("./db/teste.json", { name: "Fabio" })
+// JSONWrite("./db/teste.json", { name: "FabioS" })
 //   .then(console.log)
 //   .catch(console.error);
 
