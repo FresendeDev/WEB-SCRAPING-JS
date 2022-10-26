@@ -1,4 +1,10 @@
 const pup = require("puppeteer");
+// import JSONWrite from "./write";
+// import * as JSONWrite from "./write.js";
+// var test = require("./write.js");
+const JSONWrite = require("./write");
+// import { JSONWrite } from "./write";
+// import { test } from "./write";
 
 // const fs = require("fs");
 
@@ -80,6 +86,13 @@ const list = [];
       c++;
     }
   }
+  const t = { name: "fabio" };
+  const ab = JSONWrite("./db/teste.json", list)
+    .then(console.log)
+    .catch(console.error);
+
+  // JSONWrite("./db/teste.json", list);
+
   // escrevendo no arquivo json
   // fs.writeFile(
   //   "./db/dados.json",
@@ -97,13 +110,13 @@ const list = [];
   // );
 
   // usando o writeFileSync nao precisa retornar try catch para pegar erro
-  try {
-    const dataString = JSON.stringify(list, null, 2);
-    fs.writeFileSync("./db/dados.json", dataString, "utf-8");
-    console.log("Json ok!");
-  } catch (e) {
-    console.log(e);
-  }
+  // try {
+  //   const dataString = JSON.stringify(list, null, 2);
+  //   fs.writeFileSync("./db/dados.json", dataString, "utf-8");
+  //   console.log("Json ok!");
+  // } catch (e) {
+  //   console.log(e);
+  // }
 
   // convertendo para formato json
   // const listJason = JSON.stringify(list, null, 2);

@@ -1,5 +1,19 @@
 const fs = require("fs");
 
+const JSONWrite = (filePath, data, encoding = "utf-8") => {
+  const promisseCallback = (resolve, reject) => {
+    fs.writeFile(filePath, JSON.stringify(data, null, 2), encoding, (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(true);
+    });
+  };
+
+  return new Promise(promisseCallback);
+};
+
 // escrevendo no arquivo json
 // fs.writeFile(
 //   "./db/dados.json",
@@ -15,10 +29,17 @@ const fs = require("fs");
 //     }
 //   }
 // );
-try {
-  const dataString = JSON.stringify(list, null, 2);
-  fs.writeFileSync("./db/dados.json", dataString, "utf-8");
-  console.log("Json ok!");
-} catch (e) {
-  console.log(e);
-}
+// outro forma com writeFileSync
+// try {
+//   const dataString = JSON.stringify(list, null, 2);
+//   fs.writeFileSync("./db/dados.json", dataString, "utf-8");
+//   console.log("Json ok!");
+// } catch (e) {
+//   console.log(e);
+// }
+
+// JSONWrite("./db/teste.json", { name: "Fabio" })
+//   .then(console.log)
+//   .catch(console.error);
+
+module.exports = JSONWrite;
