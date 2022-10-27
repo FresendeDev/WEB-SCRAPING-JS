@@ -85,11 +85,15 @@ const list = [];
     }
   }
   // console.log(list);
-  const ab = JSONWrite("./db/dados.json", list)
-    .then(console.log)
-    .catch(console.error);
+  // const ab = JSONWrite("./db/dados.json", list)
+  //   .then(console.log)
+  //   // .then(console.log("Escrito Json Ok!"))
+  //   .catch(console.error);
 
-  JSONWrite("./db/teste.json", list);
+  JSONWrite("./db/teste.json", list)
+    // .then(console.log)
+    // .then(console.log("Escrito Json Ok!"))
+    .catch(console.error);
 
   // escrevendo no arquivo json
   // fs.writeFile(

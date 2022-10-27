@@ -7,9 +7,10 @@ const JSONWrite = (filePath, data, encoding = "utf-8") => {
         reject(err);
 
         return;
+      } else {
+        console.log("json escrito ok");
+        resolve(true);
       }
-      console.log("escrito json ok");
-      resolve(true);
     });
   };
 
