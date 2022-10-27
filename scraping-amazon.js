@@ -11,6 +11,7 @@ const readers = {
 };
 
 const url = "https://associados.amazon.com.br/";
+const url2 = "https://www.amazon.com.br/";
 const user = process.env.USER;
 // const user = "teste";
 const pass = process.env.PASS;
@@ -45,10 +46,19 @@ const list = [];
   await page.click(".a-checkbox > label > input");
   console.log("8. checkbox");
 
-  await page.waitForTimeout(10000);
+  await page.waitForTimeout(1000);
 
   await page.click("#signInSubmit");
   console.log("8. click login");
+
+  await page.waitForTimeout(5000);
+
+  page = await browser.newPage();
+  await page.goto(url2, readers);
+  console.log("9. fui para url2");
+
+  await page.waitForSelector(".amzn-ss-wrap-content", "#twotabsearchtextbox");
+  console.log("10. pagina carregada");
 
   // await page.click(".nav-icon-search");
   // console.log("5. cliando");
