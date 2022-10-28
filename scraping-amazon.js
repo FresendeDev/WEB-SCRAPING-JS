@@ -1,4 +1,4 @@
-const pup = require(" ");
+const pup = require("puppeteer");
 // const JSONRead = require("./read");
 const JSONWrite = require("./write");
 require("dotenv").config();
@@ -84,14 +84,6 @@ const list = [];
       // linkImage = await page.$eval("textarea");
       await page.waitForTimeout(5000);
       console.log("mais 5 segundos");
-      // const linkImage = await page.$eval(
-      //   "#amzn-ss-text-image-textarea",
-      //   (element) => element.textContent
-      // );
-      // const linkImage = await page.$eval(
-      //   "#amzn-ss-text-image-textarea",
-      //   (el) => el.innerText
-      // );
 
       const linkImage = await page.evaluate(() => {
         let el = document.querySelector("#amzn-ss-text-image-textarea").value;
@@ -104,6 +96,11 @@ const list = [];
       //       ".ui-pdp-title",
       //       (element) => element.innerText
       //     );
+      const urlImagem = await page.$eval(
+        "#landingImage",
+        (element) => element.src
+      );
+      console.log(urlImagem);
 
       //     let price = await page.$eval(
       //       ".andes-money-amount__fraction",
@@ -121,6 +118,8 @@ const list = [];
 
       obj.id = c;
       obj.linkImag = linkImage;
+      obj.urlImagem = urlImagem;
+
       //     obj.price = price;
       //     saller ? (obj.saller = saller) : "";
       //     obj.link = link;
