@@ -1,4 +1,4 @@
-const pup = require("puppeteer");
+const pup = require(" ");
 // const JSONRead = require("./read");
 const JSONWrite = require("./write");
 require("dotenv").config();
@@ -70,7 +70,7 @@ const list = [];
   let c = 1;
 
   for (let link of links) {
-    if (c < 2) {
+    if (c < 10) {
       console.log("Pagina", c);
 
       await page.goto(link);
@@ -82,18 +82,21 @@ const list = [];
 
       // const linkImage = [];
       // linkImage = await page.$eval("textarea");
-
+      await page.waitForTimeout(5000);
+      console.log("mais 5 segundos");
       // const linkImage = await page.$eval(
       //   "#amzn-ss-text-image-textarea",
       //   (element) => element.textContent
       // );
-      const linkImage = await page.$$eval("#amzn-ss-text-image-textarea").value;
-      // const resultsSelector = ".amzn-ss-text-image-textarea";
-      // const linkImage = await page.evaluate((resultsSelector) => {
-      //   return [...document.querySelectorAll(resultsSelector).textContent.trim();
-      //     return `${teste}`;
-      //   });
-      // }, resultsSelector);
+      // const linkImage = await page.$eval(
+      //   "#amzn-ss-text-image-textarea",
+      //   (el) => el.innerText
+      // );
+
+      const linkImage = await page.evaluate(() => {
+        let el = document.querySelector("#amzn-ss-text-image-textarea").value;
+        return el;
+      });
 
       console.log("coletando textare");
 
@@ -113,10 +116,10 @@ const list = [];
       //       return el.innerText;
       //     });
 
-      //     let id = c;
+      // let id = c;
       const obj = {};
 
-      //     obj.id = c;
+      obj.id = c;
       obj.linkImag = linkImage;
       //     obj.price = price;
       //     saller ? (obj.saller = saller) : "";

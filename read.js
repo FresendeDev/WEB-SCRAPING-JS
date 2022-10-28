@@ -55,4 +55,4 @@ const JSONRead = (filePath, encoding = "utf-8") => {
 
 module.exports = JSONRead;
 
-// JSONRead("./db/teste.json").then(console.log).catch(console.error);
+// JSONRead("./db/amazon.json").then(console.log).catch(console.error);
