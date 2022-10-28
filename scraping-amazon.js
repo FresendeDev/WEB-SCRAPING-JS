@@ -1,6 +1,6 @@
 const pup = require("puppeteer");
 // const JSONRead = require("./read");
-// const JSONWrite = require("./write");
+const JSONWrite = require("./write");
 require("dotenv").config();
 // const JSONRead = require("./read");
 
@@ -11,7 +11,8 @@ const readers = {
 };
 
 const url = "https://associados.amazon.com.br/";
-const url2 = "https://www.amazon.com.br/";
+const url2 =
+  "https://www.amazon.com.br/gp/bestsellers/electronics/ref=zg-bs_electronics_dw_sml";
 const user = process.env.USER;
 // const user = "teste";
 const pass = process.env.PASS;
@@ -49,68 +50,87 @@ const list = [];
   await page.waitForTimeout(1000);
 
   await page.click("#signInSubmit");
-  console.log("8. click login");
+  console.log("9. click login");
 
-  await page.waitForTimeout(5000);
-
-  page = await browser.newPage();
-  await page.goto(url2, readers);
-  console.log("9. fui para url2");
-
-  await page.waitForSelector(".amzn-ss-wrap-content", "#twotabsearchtextbox");
+  await page.waitForSelector(".ac-page-wrapper");
   console.log("10. pagina carregada");
 
-  // await page.click(".nav-icon-search");
-  // console.log("5. cliando");
+  page = await browser.newPage();
+  await page.goto(url2);
+  console.log("11. fui para url2");
 
-  // await page.waitForSelector(".ui-search-result__image");
-  // console.log("6. aguardando seletor...");
+  await page.waitForSelector("#p13n-asin-index-0");
+  console.log("12. Aguardando");
 
-  // const links = await page.$$eval(".ui-search-result__image > a", (elem) =>
-  //   elem.map((link) => link.href)
-  // );
+  const links = await page.$$eval(
+    "div.p13n-sc-uncoverable-faceout > a",
+    (elem) => elem.map((link) => link.href)
+  );
 
-  // let c = 1;
+  let c = 1;
 
-  // for (let link of links) {
-  //   if (c < 4) {
-  //     console.log("Pagina", c);
-  //     await page.goto(link);
-  //     await page.waitForSelector(".ui-pdp-title");
+  for (let link of links) {
+    if (c < 2) {
+      console.log("Pagina", c);
 
-  //     let title = await page.$eval(
-  //       ".ui-pdp-title",
-  //       (element) => element.innerText
-  //     );
-  //     let price = await page.$eval(
-  //       ".andes-money-amount__fraction",
-  //       (element) => element.innerText
-  //     );
+      await page.goto(link);
+      // await page.waitForSelector('a[title="Texto+Imagem"]');
+      await page.click('a[title="Texto+Imagem"]');
 
-  //     let saller = await page.evaluate(() => {
-  //       let el = document.querySelector(".ui-pdp-seller__link-trigger");
-  //       if (!el) return null;
-  //       return el.innerText;
-  //     });
+      await page.waitForSelector("#amzn-ss-text-image-textarea");
+      console.log("13. aguardando carregar o texto area");
 
-  //     let id = c;
-  //     const obj = {};
+      // const linkImage = [];
+      // linkImage = await page.$eval("textarea");
 
-  //     obj.id = c;
-  //     obj.title = title;
-  //     obj.price = price;
-  //     saller ? (obj.saller = saller) : "";
-  //     obj.link = link;
+      // const linkImage = await page.$eval(
+      //   "#amzn-ss-text-image-textarea",
+      //   (element) => element.textContent
+      // );
+      const linkImage = await page.$$eval("#amzn-ss-text-image-textarea").value;
+      // const resultsSelector = ".amzn-ss-text-image-textarea";
+      // const linkImage = await page.evaluate((resultsSelector) => {
+      //   return [...document.querySelectorAll(resultsSelector).textContent.trim();
+      //     return `${teste}`;
+      //   });
+      // }, resultsSelector);
 
-  //     list.push(obj);
+      console.log("coletando textare");
 
-  //     c++;
-  //   }
-  // }
+      //     let title = await page.$eval(
+      //       ".ui-pdp-title",
+      //       (element) => element.innerText
+      //     );
 
-  // JSONWrite("./db/teste.json", list).catch(console.error);
+      //     let price = await page.$eval(
+      //       ".andes-money-amount__fraction",
+      //       (element) => element.innerText
+      //     );
 
-  await page.waitForTimeout(10000);
+      //     let saller = await page.evaluate(() => {
+      //       let el = document.querySelector(".ui-pdp-seller__link-trigger");
+      //       if (!el) return null;
+      //       return el.innerText;
+      //     });
+
+      //     let id = c;
+      const obj = {};
+
+      //     obj.id = c;
+      obj.linkImag = linkImage;
+      //     obj.price = price;
+      //     saller ? (obj.saller = saller) : "";
+      //     obj.link = link;
+
+      list.push(obj);
+
+      c++;
+    }
+  }
+
+  JSONWrite("./db/amazon.json", list).catch(console.error);
+
+  await page.waitForTimeout(3000);
 
   await browser.close();
   console.log("fechado");
